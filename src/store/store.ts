@@ -6,8 +6,6 @@ export const store = configureStore({
   reducer: {
     generateTableSlice
   },
-
-
 })
 
 export type RootState = ReturnType<typeof store.getState>

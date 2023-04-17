@@ -57,7 +57,6 @@ const Form: FC<FormProps> = ({ data, updateForm, clone, tableId }) => {
     setDataUser(defaultForm);
   }
 
-
   const submitCloneHandler = () => {
     if(tableId) {
       dispatch(updateCloneTable({tableId,cloneUser:dataUser}))

@@ -16,7 +16,6 @@ export const createUser:CaseReducer<IGenerateTableSlice, PayloadAction<IUser>> =
   state.mainForm = defaultForm
 }
 
-
 export const updateMainTable:CaseReducer<IGenerateTableSlice, PayloadAction<IUser>> = (state, action) => {
   const updatedUser = action.payload
   state.users = state.users.map((user) => user.id === updatedUser.id ? ({...user,...updatedUser}) : ({...user}))
@@ -116,9 +115,7 @@ export const copyCloneTable:CaseReducer<IGenerateTableSlice, PayloadAction<{tabl
     state.tables.splice(currentTableIndex,0, {id, users: currentTable.users})
     state.copyTableCloneModalId = null
   }
- 
 }
-
 
 export const deleteTable:CaseReducer<IGenerateTableSlice, PayloadAction<{id:string}>> = (state,action) => {
   const {id} = action.payload
