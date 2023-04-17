@@ -4,13 +4,6 @@ import { IUser } from "../../types/user"
 import { v4 as uuid } from "uuid";
 
 
-export const updateMainForm:CaseReducer<IGenerateTableSlice, PayloadAction<IUser>> = (state, action) => {
-  state.mainForm = action.payload
-}
-export const updateCloneForm:CaseReducer<IGenerateTableSlice, PayloadAction<IUser>> = (state, action) => {
-  state.cloneForm = action.payload
-}
-
 export const createUser:CaseReducer<IGenerateTableSlice, PayloadAction<IUser>> = (state,action) => {
   state.users.push(action.payload)
   state.mainForm = defaultForm

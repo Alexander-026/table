@@ -1,5 +1,4 @@
 import {
-  updateMainForm,
   createUser,
   editUserOfMainTable,
   updateMainTable,
@@ -11,7 +10,6 @@ import {
   toggleActivateModalDeleteTable,
   editUserOfCloneTable,
   updateCloneTable,
-  updateCloneForm,
   deleteUserOfCloneTable,
   toggleActivateModalCloneUserDelete,
   toggleActivateCloneModalCopy,
@@ -59,7 +57,6 @@ export const generateTableSlice = createSlice({
   name: "generate-table",
   initialState,
   reducers: {
-    updateMainForm,
     createUser,
     editUserOfMainTable,
     updateMainTable,
@@ -71,7 +68,6 @@ export const generateTableSlice = createSlice({
     toggleActivateModalDeleteTable,
     editUserOfCloneTable,
     updateCloneTable,
-    updateCloneForm,
     deleteUserOfCloneTable,
     toggleActivateModalCloneUserDelete,
     toggleActivateCloneModalCopy,
