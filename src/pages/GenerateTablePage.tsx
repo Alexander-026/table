@@ -5,8 +5,6 @@ import Table from "../components/Table/Table";
 import { useAppSelector } from "../hooks/redux";
 import Windows from "../components/Windows/Windows";
 
-let render = 0
-
 const GenerateTablePage = () => {
   const { mainForm, users, tables } = useAppSelector(
     (state) => state.generateTableSlice
@@ -14,7 +12,6 @@ const GenerateTablePage = () => {
  
   return (
     <div className={styles.generator}>
-      <h6>Render: {render++}</h6>
       <Windows />
       <Form data={mainForm}  />
       <Table main users={users} />

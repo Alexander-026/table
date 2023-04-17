@@ -10,7 +10,6 @@ import useValidation, { IValidationOptions } from "../../hooks/useValidation";
 import { useAppDispatch } from "../../hooks/redux";
 import { defaultForm, generateTableSlice } from "../../store/slices/generateTableSlice";
 
-let render = 0
 
 const options: SelectOptions[] = [
   { label: "Riga", value: "Riga" },
@@ -69,7 +68,6 @@ const Form: FC<FormProps> = ({ data,  clone, tableId }) => {
 
   return (
     <div className={styles.form}>
-      <h6>REnder: {render++}</h6>
       <Input
         value={dataUser.name}
         label="Name"
