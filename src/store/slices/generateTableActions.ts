@@ -55,8 +55,6 @@ export const editUserOfCloneTable:CaseReducer<IGenerateTableSlice, PayloadAction
   }
 }
 
-
-
 export const deleteUserOfMainTable:CaseReducer<IGenerateTableSlice, PayloadAction<{id:string}>> = (state, action) => {
   const {id} = action.payload
   state.users = state.users.filter((user) => user.id !== id)
@@ -74,8 +72,7 @@ export const deleteUserOfCloneTable:CaseReducer<IGenerateTableSlice, PayloadActi
   })
   //? If we delete the last user, then the table is deleted automatically
   const filteredTables = tables.filter((table) => table.id !== tableId)
-  console.log('filteredTables', filteredTables)
-  const users = filteredTables.find((table) => table.id === tableId)?.users.length
+  const users = tables.find((table) => table.id === tableId)?.users.length
   state.tables =  !!users ? tables : filteredTables
   state.deleteUserCloneModalId = null
 }

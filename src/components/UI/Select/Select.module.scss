@@ -1,4 +1,6 @@
 
+
+
 .select {
   position: relative;
   margin-bottom: 16px;
@@ -10,6 +12,7 @@
     color: var(--light-gray-secondary);
     min-width: 240px;
     padding: 14px;
+    overflow: hidden;
     cursor: pointer;
     user-select: none;
     &Label,&Value {
@@ -35,12 +38,9 @@
     }
 
     &Label:global(.focus) {
-      top: -8px;
-      transform: translate(0, 0);
-      scale: 0.95;
+      top: -50%;
     }
   
-
     &Arrow {
       right: 14px;
       transform: rotate(180deg);
@@ -98,6 +98,7 @@
     height: auto;
     max-height: 20rem;
     border: 1px solid var(--light-gray);
+    z-index: 200;
   }
 
 }

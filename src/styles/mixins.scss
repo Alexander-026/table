@@ -1,5 +1,23 @@
 @mixin flexbox($display, $justify-content, $align-items) {
   display: $display;
   justify-content: $justify-content;
-  align-items: $align-items ;
+  align-items: $align-items;
+}
+
+@mixin scroll {
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar {
+    background-color: var(--light-gray);
+  }
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-thead-table);
+  }
+  //  for Mozilla Firefox
+  scrollbar-color: var(--color-thead-table) var(--white);
+  scrollbar-width: thin;
+  scrollbar: thin;
 }

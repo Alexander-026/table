@@ -5,6 +5,7 @@
   border: 1px solid var(--light-gray);
   border-radius: var(--radius);
   color: var(--light-gray-secondary);
+  overflow: hidden;
   &Label,&Input {
     display: block;
     text-align: left;
@@ -20,9 +21,7 @@
   }
 
   &Label:global(.focus) {
-    top: -8px;
-    transform: translate(0, 0);
-    scale: 0.95;
+    top: -50%;
   }
 
 

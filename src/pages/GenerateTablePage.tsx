@@ -8,8 +8,6 @@ import { generateTableSlice } from "../store/slices/generateTableSlice";
 import { IUser } from "../types/user";
 import Confirm from "../components/Confirm/Confirm ";
 
-let render = 0;
-
 const GenerateTablePage = () => {
   const {
     mainForm,
@@ -50,7 +48,6 @@ const GenerateTablePage = () => {
 
   return (
     <div className={styles.generator}>
-      <h1>Generate Table Render:{render++}</h1>
       <ModalWindow visibility={!!deleteUserModalId}>
         <Confirm
           text={"Delete user"}
@@ -63,8 +60,8 @@ const GenerateTablePage = () => {
       </ModalWindow>
       <ModalWindow visibility={!!deleteUserCloneModalId}>
         <Confirm
-          text={"Delete user"}
-          cancel={() => dispatch(toggleActivateModalCloneUserDelete(deleteUserCloneModalId))}
+          text={"Delete clone user"}
+          cancel={() => dispatch(toggleActivateModalCloneUserDelete(null))}
           ok={() =>
             deleteUserCloneModalId &&
             dispatch(deleteUserOfCloneTable({tableId:deleteUserCloneModalId.tableId, userId:deleteUserCloneModalId.id}))

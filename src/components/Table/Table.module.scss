@@ -1,10 +1,11 @@
-@import '../../styles/mixins.scss';
+@import "../../styles/mixins.scss";
 
 .tableWrapper {
   width: 600px;
   margin: 0 auto 2rem auto;
+  @include scroll;
   &Control {
-    @include flexbox(flex,flex-end, center);
+    @include flexbox(flex, flex-end, center);
     gap: 25px;
     margin-bottom: 15px;
     &Delete {
@@ -14,37 +15,25 @@
       }
     }
   }
-
   &Table {
-    table-layout: fixed;
     width: 100%;
+    table-layout: fixed;
     border-spacing: 0;
     text-align: left;
     border-radius: var(--radius);
     overflow: hidden;
     thead {
       background-color: var(--dark-blue);
+      border-radius: var(--radius);
       tr {
-       th {
-        padding: 10px 12px;
-        color: var(--color-thead-table);
-       }
-       .name,.age,.city{
-         width: 95px ;
-       }
-       .surname {
-         width: 130px;
-       }
-       
-       .lastCell {
-        width: 190px;
-       }
+        th {
+          color: var(--color-thead-table);
+        }
       }
     }
     tbody {
       tr {
         td {
-          padding-left: 12px;
           height: 34px;
           border: none;
           overflow: hidden;
@@ -52,44 +41,65 @@
           text-overflow: ellipsis;
           background-color: var(--white);
           border-right: 1px solid var(--light-gray);
-          border-bottom: 1px solid var(--light-gray) ;
+          border-bottom: 1px solid var(--light-gray);
           color: var(--light-gray-secondary);
           &:last-child {
             border-right: 0;
-            @include flexbox(flex,space-around, center);
-          }
-
-          .editRow, .deleteRow{
-            text-decoration: underline;
-            cursor: pointer;
-            transition: text-decoration .1s linear ;
-            &:hover {
-              text-decoration: none; 
-            }
-          }
-
-          .editRow {
-            color: var(--blue);
-          }
-
-          .deleteRow {
-            color: var(--red);
           }
         }
+      }
+    }
 
-        .emptyCell {
-          height: 34px;
+    thead,
+    tbody {
+      tr {
+        th,
+        td {
+          padding: 10px 12px;
+        }
+        .name,
+        .age {
+          width: 95px;
+        }
+        .city {
+          width: 88px;
+        }
+        .surname {
+          width: 130px;
+        }
+
+        .lastCell {
+          width: 192px;
+          &Control {
+            @include flexbox(flex, space-around, center);
+            &EditRow,
+            &DeleteRow {
+              text-decoration: underline;
+              cursor: pointer;
+              transition: text-decoration 0.1s linear;
+              &:hover {
+                text-decoration: none;
+              }
+            }
+            &EditRow {
+              color: var(--blue);
+            }
+
+            &DeleteRow {
+              color: var(--red);
+            }
+          }
         }
       }
     }
   }
 
-
   @media (max-width: 768px) {
     width: 400px;
     overflow-x: scroll;
+    border-radius: var(--radius);
     &Control {
-      @include flexbox(flex,flex-start, center);
+      @include flexbox(flex, flex-start, center);
     }
     &Table {
       width: 600px;
@@ -97,6 +107,7 @@
   }
 
   @media (max-width: 576px) {
-    width: 300px;
- }
+    width: 280px;
+  }
 }
+

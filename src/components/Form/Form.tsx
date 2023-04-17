@@ -7,7 +7,7 @@ import Select from "../UI/Select/Select";
 import { SelectOptions } from "../../types/selectOptions";
 import { IUser } from "../../types/user";
 import useDebounce from "../../hooks/useDebounce";
-import useValidation from "../../hooks/useValidation";
+import useValidation, { IValidationOptions } from "../../hooks/useValidation";
 import { useAppDispatch } from "../../hooks/redux";
 import { defaultForm, generateTableSlice } from "../../store/slices/generateTableSlice";
 
@@ -29,13 +29,13 @@ const Form: FC<FormProps> = ({ data, updateForm, clone, tableId }) => {
   const [dataUser, setDataUser] = useState<IUser>(data);
   const dispatch = useAppDispatch();
   const debouncedUser = useDebounce(dataUser, 500);
-  const { ageIsValid, cityIsValid, nameIsValid, surnameIsValid } =
+  const { nameError,surnameError,ageError,cityError } =
     useValidation(dataUser, [
-      { key: "name", required: true, minLength: 2 },
-      { key: "surname", required: true, minLength: 2 },
-      { key: "age", required: true },
+      { key: "name", required: true, minLength: 2 ,string:true},
+      { key: "surname", required: true, minLength: 2, string:true },
+      { key: "age", required: true, min: 1 },
       { key: "city", required: true },
-    ]);
+    ] as IValidationOptions[]);
 
   const { createUser, updateMainTable, updateCloneTable} = generateTableSlice.actions;
 
@@ -64,20 +64,15 @@ const Form: FC<FormProps> = ({ data, updateForm, clone, tableId }) => {
     }
   }
 
-
   useEffect(() => {
-    
     updateForm(debouncedUser);
-   
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedUser]);
 
   useEffect(() => {
     setDataUser(data);
   }, [data]);
-  const isValid = ageIsValid || cityIsValid || nameIsValid || surnameIsValid;
-
-
+  const isValid = nameError || surnameError || ageError || cityError
 
   return (
     <div className={styles.form}>
@@ -86,27 +81,27 @@ const Form: FC<FormProps> = ({ data, updateForm, clone, tableId }) => {
         label="Name"
         type="text"
         onChange={(value) => updateUserHandler("name", value)}
-        error={nameIsValid}
+        error={nameError}
       />
       <Input
         value={dataUser.surname}
         label="Surname"
         type="text"
         onChange={(value) => updateUserHandler("surname", value)}
-        error={surnameIsValid}
+        error={surnameError}
       />
       <Input
         value={dataUser.age}
         label="Age"
         type="number"
         onChange={(value) => updateUserHandler("age", value)}
-        error={ageIsValid}
+        error={ageError}
       />
       <Select
         value={dataUser.city}
         label="City"
         options={options}
-        error={cityIsValid}
+        error={cityError}
         onChange={(value) => updateUserHandler("city", value)}
       />
       <Button

@@ -12,7 +12,6 @@ type TableProps = {
   main?: boolean;
   tableId?: string;
 };
-
 const Table: FC<TableProps> = ({ users, main, tableId }) => {
   const dispatch = useAppDispatch();
   const {
@@ -47,7 +46,7 @@ const Table: FC<TableProps> = ({ users, main, tableId }) => {
       dispatch(toggleActivateModalCopy({ id: 1 }));
     }
     if (!main && id) {
-      dispatch(toggleActivateCloneModalCopy({id}))
+      dispatch(toggleActivateCloneModalCopy({ id }));
     }
   };
 
@@ -55,6 +54,7 @@ const Table: FC<TableProps> = ({ users, main, tableId }) => {
     dispatch(toggleActivateModalDeleteTable({ id }));
   };
 
+  const countEmptyCell: number = 10 - users.length <= 0 ? 0 : 10 - users.length;
   return (
     <div className={styles.tableWrapper}>
       <div className={styles.tableWrapperControl}>
@@ -85,37 +85,49 @@ const Table: FC<TableProps> = ({ users, main, tableId }) => {
         <tbody>
           {users.map((user) => (
             <tr key={user.id}>
-              <td title={user.name}>{user.name}</td>
-              <td title={user.surname}>{user.surname}</td>
-              <td>{user.age}</td>
-              <td title={user.city}>{user.city}</td>
-              <td>
-                <span
-                  onClick={() => user.id && setUserHandler(user.id, tableId)}
-                  className={styles.editRow}
-                >
-                  Edit
-                </span>
-                <span
-                  onClick={() => user.id && deleteUserHanlder(user.id, tableId)}
-                  className={styles.deleteRow}
-                >
-                  Delete
-                </span>
+              <td className={styles.name} title={user.name}>
+                {user.name}
+              </td>
+              <td className={styles.surname} title={user.surname}>
+                {user.surname}
+              </td>
+              <td className={styles.age}>
+                {user.age}
+              </td>
+              <td className={styles.city} title={user.city}>
+                {user.city}
+              </td>
+              <td className={styles.lastCell}>
+                <div className={styles.lastCellControl}>
+                  <span
+                    onClick={() => user.id && setUserHandler(user.id, tableId)}
+                    className={styles.lastCellControlEditRow}
+                  >
+                    Edit
+                  </span>
+                  <span
+                    onClick={() =>
+                      user.id && deleteUserHanlder(user.id, tableId)
+                    }
+                    className={styles.lastCellControlDeleteRow}
+                  >
+                    Delete
+                  </span>
+                </div>
               </td>
             </tr>
           ))}
 
           {main &&
-            Array(10 - users.length)
+            Array(countEmptyCell)
               .fill("")
-              .map((cell) => (
+              .map(() => (
                 <tr key={uuid()}>
-                  <td className={styles.emptyCell} />
-                  <td className={styles.emptyCell} />
-                  <td className={styles.emptyCell} />
-                  <td className={styles.emptyCell} />
-                  <td className={styles.emptyCell} />
+                  <td className={styles.name} />
+                  <td className={styles.surname} />
+                  <td className={styles.age} />
+                  <td className={styles.city} />
+                  <td className={styles.lastCell} />
                 </tr>
               ))}
         </tbody>

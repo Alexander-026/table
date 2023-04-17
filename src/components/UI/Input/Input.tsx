@@ -27,12 +27,12 @@ const Input: FC<InputProps> = ({
     setTouched(false)
   }, [value])
   const input = inputRef.current;
-  const isFocused = focus || !!input?.value;
+  const isFocused = focus || !!input?.value || !!input?.validationMessage;
   return (
     <div className={classnames(styles.field, className, { error: error && touched})}>
       <label
         className={classnames(styles.fieldLabel, {
-          focus: isFocused  ,
+          focus: isFocused,
         })}
         htmlFor={label}
       >
