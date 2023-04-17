@@ -1,0 +1,45 @@
+.button {
+  border: none;
+  border-radius: var(--radius);
+  padding: 5px 16.5px;
+  cursor: pointer;
+  transition: all .1s linear;
+}
+
+.button:global(.uppercase) {
+  text-transform: uppercase;
+}
+
+
+.button:global(.primary) {
+  color: var(--white);
+  background-color: var(--blue);
+  &:hover {
+    background-color: var(--dark-blue);
+  }
+  &:disabled {
+    background-color: var(--gray);
+    cursor: not-allowed;
+  }
+}
+.button:global(.secondary) {
+  color: var(--white);
+  background-color: var(--red);
+  &:hover {
+    background-color: var(--dark-red);
+  }
+  &:disabled {
+    background-color: var(--gray);
+    cursor: not-allowed;
+  }
+}
+
+.button:global(.large) {
+  padding: 14px 30px;
+}
+
+
+
+.button:global(.full) {
+  width: 100%;
+}

@@ -1,0 +1,52 @@
+
+.field {
+  position: relative;
+  margin-bottom: 16px;
+  border: 1px solid var(--light-gray);
+  border-radius: var(--radius);
+  color: var(--light-gray-secondary);
+  &Label,&Input {
+    display: block;
+    text-align: left;
+  }
+
+  &Label {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 14px;
+    background-color: var(--white);
+    transition: all .1s linear;
+  }
+
+  &Label:global(.focus) {
+    top: -8px;
+    transform: translate(0, 0);
+    scale: 0.95;
+  }
+
+
+  &Input {
+    border: none;
+    outline: none;
+    min-width: 240px;
+    padding: 14px;
+    color: var(--black);
+    border-radius: var(--radius);
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    &[type=number] {
+      -moz-appearance: textfield;
+    }
+  }
+
+  &:global(.error) {
+    border: 1px solid var(--red);
+    .fieldLabel {
+      color: var(--red);
+    }
+  }
+}

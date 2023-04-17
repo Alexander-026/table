@@ -1,0 +1,102 @@
+@import '../../styles/mixins.scss';
+
+.tableWrapper {
+  width: 600px;
+  margin: 0 auto 2rem auto;
+  &Control {
+    @include flexbox(flex,flex-end, center);
+    gap: 25px;
+    margin-bottom: 15px;
+    &Delete {
+      cursor: pointer;
+      &:active {
+        scale: 0.8;
+      }
+    }
+  }
+
+  &Table {
+    table-layout: fixed;
+    width: 100%;
+    border-spacing: 0;
+    text-align: left;
+    border-radius: var(--radius);
+    overflow: hidden;
+    thead {
+      background-color: var(--dark-blue);
+      tr {
+       th {
+        padding: 10px 12px;
+        color: var(--color-thead-table);
+       }
+       .name,.age,.city{
+         width: 95px ;
+       }
+       .surname {
+         width: 130px;
+       }
+       
+       .lastCell {
+        width: 190px;
+       }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          padding-left: 12px;
+          height: 34px;
+          border: none;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          background-color: var(--white);
+          border-right: 1px solid var(--light-gray);
+          border-bottom: 1px solid var(--light-gray) ;
+          color: var(--light-gray-secondary);
+          &:last-child {
+            border-right: 0;
+            @include flexbox(flex,space-around, center);
+          }
+
+          .editRow, .deleteRow{
+            text-decoration: underline;
+            cursor: pointer;
+            transition: text-decoration .1s linear ;
+            &:hover {
+              text-decoration: none; 
+            }
+          }
+
+          .editRow {
+            color: var(--blue);
+          }
+
+          .deleteRow {
+            color: var(--red);
+          }
+        }
+
+        .emptyCell {
+          height: 34px;
+        }
+      }
+    }
+  }
+
+
+  @media (max-width: 768px) {
+    width: 400px;
+    overflow-x: scroll;
+    &Control {
+      @include flexbox(flex,flex-start, center);
+    }
+    &Table {
+      width: 600px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    width: 300px;
+ }
+}

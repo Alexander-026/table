@@ -1,0 +1,103 @@
+
+.select {
+  position: relative;
+  margin-bottom: 16px;
+  padding-bottom: 4px;
+  &Field {
+    position: relative;
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius);
+    color: var(--light-gray-secondary);
+    min-width: 240px;
+    padding: 14px;
+    cursor: pointer;
+    user-select: none;
+    &Label,&Value {
+      display: block;
+      text-align: left;
+    }
+
+    &Value {
+      color: var(--black);
+      height: 16px;
+    }
+    
+    &Arrow,&Label {
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%);
+      background-color: var(--white);
+      transition: all .1s linear;
+    }
+
+    &Label {
+      left: 14px;
+    }
+
+    &Label:global(.focus) {
+      top: -8px;
+      transform: translate(0, 0);
+      scale: 0.95;
+    }
+  
+
+    &Arrow {
+      right: 14px;
+      transform: rotate(180deg);
+    }
+
+    &Arrow:global(.visibility) {
+      transform: rotate(0deg);
+    }
+
+
+    &:global(.error) {
+      border: 1px solid var(--red);
+      .selectFieldLabel {
+        color: var(--red);
+      }
+    }
+  }
+
+  &List {
+    position: absolute;
+    max-height: 0;
+    overflow: hidden;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    user-select: none;
+    transform: translate(0, calc(100%));
+    background-color: var(--white);
+    border: 1px solid var(--white);
+    border-radius: var(--radius);
+    color: var(--light-gray-secondary);
+    padding: 0 14px;
+    transition: max-height .1s linear;
+    &Item {
+      padding: 14px 0;
+      text-align: left;
+      border-bottom: 1px solid var(--light-gray) ;
+      transition: all .1s linear;
+      cursor: pointer;
+      &:last-child {
+        border-bottom: none ;
+      }
+      &:hover {
+        color: var(--dark)
+      }
+    }
+
+    &Item:global(.selected) {
+      color: var(--dark)
+    }
+  }
+
+
+  &List:global(.visibility) {
+    height: auto;
+    max-height: 20rem;
+    border: 1px solid var(--light-gray);
+  }
+
+}

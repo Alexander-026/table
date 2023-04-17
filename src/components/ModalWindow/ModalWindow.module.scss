@@ -1,0 +1,23 @@
+
+@import '../../styles/mixins.scss';
+body:global(.fixed) {
+   overflow: hidden;
+}
+
+.ModalWindow {
+   position: fixed;
+   z-index: 100;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   text-align: center;
+   background-color: rgba(0, 0, 0, 0.396);
+   @include flexbox(flex, center, center);
+}
+
+
+.wrapperChildren {
+   position: relative;
+   display: inline-block;
+}

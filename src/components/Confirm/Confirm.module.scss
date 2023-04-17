@@ -1,0 +1,19 @@
+@import '../../styles/mixins.scss';
+
+.confirm {
+  padding: 2rem;
+  background-color: var(--white);
+  border-radius: var(--radius);
+  width: 280px;
+  &Text {
+    margin-bottom: 2rem;
+    color: var(--dark);
+    text-transform: uppercase;
+  }
+
+  &Btns {
+    @include flexbox(flex, space-around, center);
+    gap: 1rem;
+  }
+
+}
