@@ -3,7 +3,7 @@ import styles from "./Table.module.scss";
 import { v4 as uuid } from "uuid";
 import Button from "../UI/Button/Button";
 import { ReactComponent as DeleteSVG } from "../../images/delete.svg";
-import { useAppDispatch } from "../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { IUser } from "../../types/user";
 import { generateTableSlice } from "../../store/slices/generateTableSlice";
 
@@ -13,6 +13,7 @@ type TableProps = {
   tableId?: string;
 };
 const Table: FC<TableProps> = ({ users, main, tableId }) => {
+  const {mainForm} = useAppSelector(state => state.generateTableSlice)
   const dispatch = useAppDispatch();
   const {
     editUserOfMainTable,
@@ -25,6 +26,7 @@ const Table: FC<TableProps> = ({ users, main, tableId }) => {
   } = generateTableSlice.actions;
 
   const setUserHandler = (id: string, tableId?: string) => {
+    if(mainForm.id === id ) return
     if (main && !tableId) {
       dispatch(editUserOfMainTable({ id }));
     }

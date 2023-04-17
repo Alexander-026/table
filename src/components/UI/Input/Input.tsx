@@ -1,6 +1,7 @@
-import React, { FC, useState, useRef,  useEffect } from "react";
+import React, { FC, useState, useRef,  useEffect} from "react";
 import classnames from "classnames";
 import styles from "./Input.module.scss";
+
 
 type InputProps = {
   label: string;

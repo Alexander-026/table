@@ -1,7 +1,6 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { generateTableSlice } from '../../store/slices/generateTableSlice';
-import { IUser } from '../../types/user';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import Confirm from '../Confirm/Confirm ';
 import Form from '../Form/Form';
@@ -24,16 +23,13 @@ const Windows = () => {
     copyMainTable,
     deleteTable,
     toggleActivateModalDeleteTable,
-    updateCloneForm,
     deleteUserOfCloneTable,
     toggleActivateModalCloneUserDelete,
     toggleActivateCloneModalCopy,
     copyCloneTable
     
   } = generateTableSlice.actions;
-  const updateCloneFormHandler = (user: IUser) => {
-    dispatch(updateCloneForm(user));
-  };
+  
   return (
     <>
       <ModalWindow visibility={!!deleteUserModalId}>
@@ -81,7 +77,7 @@ const Windows = () => {
         />
       </ModalWindow>
       <ModalWindow visibility={!!editCloneUserModalId}>
-        <Form data={cloneForm} updateForm={updateCloneFormHandler} tableId={editCloneUserModalId || ''} clone />
+        <Form data={cloneForm} tableId={editCloneUserModalId || ''} clone />
       </ModalWindow>
     </>
   );

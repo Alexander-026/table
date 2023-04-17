@@ -19,6 +19,7 @@ export const createUser:CaseReducer<IGenerateTableSlice, PayloadAction<IUser>> =
 export const updateMainTable:CaseReducer<IGenerateTableSlice, PayloadAction<IUser>> = (state, action) => {
   const updatedUser = action.payload
   state.users = state.users.map((user) => user.id === updatedUser.id ? ({...user,...updatedUser}) : ({...user}))
+  state.mainForm = defaultForm
 }
 export const updateCloneTable:CaseReducer<IGenerateTableSlice, PayloadAction<{tableId:string, cloneUser:IUser}>> = (state, action) => {
   const {tableId,cloneUser} = action.payload

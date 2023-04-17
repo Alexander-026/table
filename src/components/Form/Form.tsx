@@ -6,10 +6,11 @@ import Button from "../UI/Button/Button";
 import Select from "../UI/Select/Select";
 import { SelectOptions } from "../../types/selectOptions";
 import { IUser } from "../../types/user";
-import useDebounce from "../../hooks/useDebounce";
 import useValidation, { IValidationOptions } from "../../hooks/useValidation";
 import { useAppDispatch } from "../../hooks/redux";
 import { defaultForm, generateTableSlice } from "../../store/slices/generateTableSlice";
+
+let render = 0
 
 const options: SelectOptions[] = [
   { label: "Riga", value: "Riga" },
@@ -20,15 +21,13 @@ const options: SelectOptions[] = [
 
 type FormProps = {
   data: IUser;
-  updateForm: (user: IUser) => void;
   clone?:boolean
   tableId?:string
 };
 
-const Form: FC<FormProps> = ({ data, updateForm, clone, tableId }) => {
+const Form: FC<FormProps> = ({ data,  clone, tableId }) => {
   const [dataUser, setDataUser] = useState<IUser>(data);
   const dispatch = useAppDispatch();
-  const debouncedUser = useDebounce(dataUser, 500);
   const { nameError,surnameError,ageError,cityError } =
     useValidation(dataUser, [
       { key: "name", required: true, minLength: 2 ,string:true},
@@ -64,17 +63,13 @@ const Form: FC<FormProps> = ({ data, updateForm, clone, tableId }) => {
   }
 
   useEffect(() => {
-    updateForm(debouncedUser);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedUser]);
-
-  useEffect(() => {
     setDataUser(data);
   }, [data]);
   const isValid = nameError || surnameError || ageError || cityError
 
   return (
     <div className={styles.form}>
+      <h6>REnder: {render++}</h6>
       <Input
         value={dataUser.name}
         label="Name"
