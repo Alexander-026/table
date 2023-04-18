@@ -9,7 +9,7 @@ type SelectProps = {
   label: string;
   className?: string;
   error?:boolean;
-  value: string | undefined;
+  value: string | number;
   options: SelectOptions[];
   onChange: (value: string) => void;
 };
@@ -29,8 +29,10 @@ const Select: FC<SelectProps> = ({
     setTouched(false)
   }, [value])
 
-  const selectHandler = (value: string) => {
-    onChange(value);
+  const selectHandler = (selectedValue: string) => {
+    if(selectedValue !== value) {
+      onChange(selectedValue);
+    }
     setVisibility(false);
   };
 

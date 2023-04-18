@@ -1,9 +1,9 @@
-import React, { FC, useState, useRef,  useEffect} from "react";
+import React, { FC,  useState, useRef, memo, useEffect} from "react";
 import classnames from "classnames";
 import styles from "./Input.module.scss";
 
 
-type InputProps = {
+type InputProps =  {
   label: string;
   type: "text" | "number";
   value: string | number;
@@ -18,7 +18,7 @@ const Input: FC<InputProps> = ({
   value,
   onChange,
   className,
-  error
+  error,
 }) => {
   const [focus, setFocus] = useState<boolean>(false);
   const [touched, setTouched] = useState<boolean>(false)
@@ -49,11 +49,11 @@ const Input: FC<InputProps> = ({
           setFocus(false)
           setTouched(true)
         }}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e:React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
         ref={inputRef}
       />
     </div>
   );
 };
 
-export default Input;
+export default memo(Input) ;

@@ -1,12 +1,12 @@
-import React from "react";
 import styles from "./GenerateTablePage.module.scss";
 import Form from "../components/Form/Form";
 import Table from "../components/Table/Table";
 import { useAppSelector } from "../hooks/redux";
 import Windows from "../components/Windows/Windows";
+import ListTables from "../components/ListTables/ListTables";
 
 const GenerateTablePage = () => {
-  const { mainForm, users, tables } = useAppSelector(
+  const { mainForm, users } = useAppSelector(
     (state) => state.generateTableSlice
   );
  
@@ -15,9 +15,7 @@ const GenerateTablePage = () => {
       <Windows />
       <Form data={mainForm}  />
       <Table main users={users} />
-      {tables.map((table) => (
-        <Table key={table.id} users={table.users} tableId={table.id} />
-      ))}
+      <ListTables/>
     </div>
   );
 };

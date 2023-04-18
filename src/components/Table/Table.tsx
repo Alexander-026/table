@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC, memo } from "react";
 import styles from "./Table.module.scss";
 import { v4 as uuid } from "uuid";
 import Button from "../UI/Button/Button";
@@ -138,4 +138,4 @@ const Table: FC<TableProps> = ({ users, main, tableId }) => {
   );
 };
 
-export default Table;
+export default memo(Table) ;

@@ -10,7 +10,6 @@ import useValidation, { IValidationOptions } from "../../hooks/useValidation";
 import { useAppDispatch } from "../../hooks/redux";
 import { defaultForm, generateTableSlice } from "../../store/slices/generateTableSlice";
 
-
 const options: SelectOptions[] = [
   { label: "Riga", value: "Riga" },
   { label: "Daugavpils", value: "Daugavpils" },

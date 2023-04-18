@@ -21,3 +21,20 @@
   scrollbar-width: thin;
   scrollbar: thin;
 }
+
+
+@mixin fieldStyles {
+  position: relative;
+  border: 1px solid var(--light-gray);
+  border-radius: var(--radius);
+  color: var(--light-gray-secondary);
+  overflow: hidden;
+}
+
+@mixin labelStyles {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  background-color: var(--white);
+  transition: all .1s linear;
+}

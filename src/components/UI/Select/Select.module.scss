@@ -1,4 +1,4 @@
-
+@import '../../../styles/mixins.scss';
 
 
 .select {
@@ -6,13 +6,9 @@
   margin-bottom: 16px;
   padding-bottom: 4px;
   &Field {
-    position: relative;
-    border: 1px solid var(--light-gray);
-    border-radius: var(--radius);
-    color: var(--light-gray-secondary);
+    @include fieldStyles;
     min-width: 240px;
     padding: 14px;
-    overflow: hidden;
     cursor: pointer;
     user-select: none;
     &Label,&Value {
@@ -26,11 +22,7 @@
     }
     
     &Arrow,&Label {
-      position: absolute;
-      top: 50%;
-      transform: translate(0, -50%);
-      background-color: var(--white);
-      transition: all .1s linear;
+      @include labelStyles;
     }
 
     &Label {
