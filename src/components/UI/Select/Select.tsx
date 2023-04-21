@@ -1,47 +1,51 @@
-import React, { FC, memo, useEffect, useState } from "react";
+import React, {  FC, useEffect, useState } from "react";
 import styles from "./Select.module.scss";
 import { ReactComponent as ArrowSVG } from "../../../images/arrow.svg";
 import classNames from "classnames";
 import { SelectOptions } from "../../../types/selectOptions";
+import { UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { IUser } from "../../../types/user";
+
 
 
 type SelectProps = {
   label: string;
+  name: string;
+  onChange: UseFormSetValue<IUser>,
+  register: UseFormRegister<any>,
   className?: string;
   error?:boolean;
-  value: string | number;
   options: SelectOptions[];
-  onChange: (value: string) => void;
+  value: string
 };
 
 const Select: FC<SelectProps> = ({
   label,
+  name,
+  onChange,
+  register,
   className,
   error,
   options,
-  onChange,
   value,
 }) => {
   const [visibility, setVisibility] = useState<boolean>(false);
   const [touched, setTouched] = useState<boolean>(false)
-
+ 
   useEffect(() => {
     setTouched(false)
   }, [value])
 
-  const selectHandler = (selectedValue: string) => {
-    if(selectedValue !== value) {
-      onChange(selectedValue);
-    }
+
+
+  const selectHandler = (optionValue: string) => {
+    onChange(name, optionValue, {shouldValidate: true})
     setVisibility(false);
   };
-
-
   const selected = options?.find((item) => item.value === value)
-
   const isFocused = selected || visibility
-
   const hasError = error && touched && !selected
+
 
   return (
     <div  tabIndex={0}  onBlur={(e:any) => {
@@ -60,9 +64,10 @@ const Select: FC<SelectProps> = ({
         <ArrowSVG
           className={classNames(styles.selectFieldArrow, { visibility })}
         />
+        <input readOnly  className={styles.selectFieldSelect} {...register(name)}  id={name} />
       </div>
       <ul className={classNames(styles.selectList, { visibility })}>
-        {options?.map((item) => (
+        {options.map((item) => (
           <li
             onClick={() => selectHandler(item.value)}
             className={classNames(styles.selectListItem, {selected: item.value === value })}
@@ -76,4 +81,4 @@ const Select: FC<SelectProps> = ({
   );
 };
 
-export default memo(Select);
+export default Select;

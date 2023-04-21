@@ -34,6 +34,7 @@
 @mixin labelStyles {
   position: absolute;
   top: 50%;
+  right: 0;
   transform: translate(0, -50%);
   background-color: var(--white);
   transition: all .1s linear;

@@ -1,56 +1,49 @@
-import React, { FC,  useState, useRef, memo, useEffect} from "react";
+import React, { FC,  useState, memo} from "react";
 import classnames from "classnames";
 import styles from "./Input.module.scss";
+import { UseFormRegister } from "react-hook-form";
 
 
 type InputProps =  {
   label: string;
-  type: "text" | "number";
+  name: string;
+  type: 'text' | 'number';
   value: string | number;
-  onChange: (value: string | number) => void;
+  register: UseFormRegister<any>,
   className?: string;
   error?:boolean
 };
 
 const Input: FC<InputProps> = ({
   label,
+  name,
   type,
   value,
-  onChange,
+  register,
   className,
   error,
+ 
 }) => {
   const [focus, setFocus] = useState<boolean>(false);
-  const [touched, setTouched] = useState<boolean>(false)
-  const inputRef = useRef<HTMLInputElement>(null);
+  
+  const isFocused = focus || !!value ;
 
-  useEffect(() => {
-    setTouched(false)
-  }, [value])
-  const input = inputRef.current;
-  const isFocused = focus || !!input?.value || !!input?.validationMessage;
   return (
-    <div className={classnames(styles.field, className, { error: error && touched})}>
+    <div className={classnames(styles.field, className, {error})}>
       <label
         className={classnames(styles.fieldLabel, {
           focus: isFocused,
         })}
-        htmlFor={label}
+        htmlFor={name}
       >
         {label}
       </label>
       <input
         className={styles.fieldInput}
         type={type}
-        id={label}
-        value={value}
+        id={name}
         onFocus={() => setFocus(true)}
-        onBlur={() => {
-          setFocus(false)
-          setTouched(true)
-        }}
-        onChange={(e:React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
-        ref={inputRef}
+        {...register(name, {onBlur: () => setFocus(false), valueAsNumber: type === 'number'} )} 
       />
     </div>
   );

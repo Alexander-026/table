@@ -1,4 +1,4 @@
-import React, { FC,  useEffect, useState } from "react";
+import React, { FC,  useEffect} from "react";
 import styles from "./From.module.scss";
 import { v4 as uuid } from "uuid";
 import Input from "../UI/Input/Input";
@@ -6,9 +6,12 @@ import Button from "../UI/Button/Button";
 import Select from "../UI/Select/Select";
 import { SelectOptions } from "../../types/selectOptions";
 import { IUser } from "../../types/user";
-import useValidation, { IValidationOptions } from "../../hooks/useValidation";
 import { useAppDispatch } from "../../hooks/redux";
-import { defaultForm, generateTableSlice } from "../../store/slices/generateTableSlice";
+import {  generateTableSlice } from "../../store/slices/generateTableSlice";
+import { useForm } from "react-hook-form";
+import {yupResolver} from '@hookform/resolvers/yup';
+import { userSchema } from "../../schema/userSchema";
+
 
 const options: SelectOptions[] = [
   { label: "Riga", value: "Riga" },
@@ -24,88 +27,79 @@ type FormProps = {
 };
 
 const Form: FC<FormProps> = ({ data,  clone, tableId }) => {
-  const [dataUser, setDataUser] = useState<IUser>(data);
+  const { register, handleSubmit, watch, reset,getValues,setValue ,  formState: { errors ,isValid} } = useForm<IUser>({
+      mode: 'all',
+     resolver: yupResolver(userSchema)
+  });
+  watch()
   const dispatch = useAppDispatch();
-  const { nameError,surnameError,ageError,cityError } =
-    useValidation(dataUser, [
-      { key: "name", required: true, minLength: 2 ,string:true},
-      { key: "surname", required: true, minLength: 2, string:true },
-      { key: "age", required: true, min: 1 },
-      { key: "city", required: true },
-    ] as IValidationOptions[]);
-
   const { createUser, updateMainTable, updateCloneTable} = generateTableSlice.actions;
-
-  const updateUserHandler = (key: string, value: string | number): void => {
-    setDataUser((pre) => {
-      const newUser = { ...pre };
-      newUser[key] = value;
-      return newUser;
-    });
-  };
- 
-  const submitMainHandler = () => {
+  const submitMainHandler = (dataUser:IUser) => {
     if(dataUser.id){
       dispatch(updateMainTable(dataUser))
     }else {
       const user: IUser = { ...dataUser, id: uuid() };
       dispatch(createUser(user));
     }
-    setDataUser(defaultForm);
+    reset()
   }
-
-  const submitCloneHandler = () => {
+  const submitCloneHandler = (dataUser:IUser) => {
     if(tableId) {
       dispatch(updateCloneTable({tableId,cloneUser:dataUser}))
+      reset()
     }
   }
 
   useEffect(() => {
-    setDataUser(data);
-  }, [data]);
-  const isValid = nameError || surnameError || ageError || cityError
+    reset(data);
+  }, [data, reset]);
 
   return (
-    <div className={styles.form}>
+    <form onSubmit={handleSubmit((clone && tableId) ?  submitCloneHandler :  submitMainHandler)} className={styles.form}>
       <Input
-        value={dataUser.name}
+        value={getValues().name}
+        type="text"
         label="Name"
-        type="text"
-        onChange={(value) => updateUserHandler("name", value)}
-        error={nameError}
+        name="name"
+        register={register}
+        error={!!errors.name}
       />
       <Input
-        value={dataUser.surname}
+        value={getValues().surname}
+        type="text"
         label="Surname"
-        type="text"
-        onChange={(value) => updateUserHandler("surname", value)}
-        error={surnameError}
+        name="surname"
+        register={register}
+        error={!!errors.surname}
       />
       <Input
-        value={dataUser.age}
-        label="Age"
+        value={getValues().age}
         type="number"
-        onChange={(value) => updateUserHandler("age", value)}
-        error={ageError}
+        name="age"
+        label="Age"
+        register={register}
+        error={!!errors.age}
       />
       <Select
-        value={dataUser.city}
+        value={getValues().city}
         label="City"
+        name='city'
+        onChange={setValue}
+        register={register}
         options={options}
-        error={cityError}
-        onChange={(value) => updateUserHandler("city", value)}
+        error={!!errors.city}
       />
       <Button
-        onClick={() => (clone && tableId) ?  submitCloneHandler() :  submitMainHandler()}
+        type="submit"
         size="large"
         variant="primary"
         uppercase
         full
-        disabled={isValid}
+        disabled={!isValid}
       >
-        {dataUser.id ? 'update' : 'add'}
+        {getValues().id ? 'update' : 'add'}
       </Button>
-    </div>
+    </form>
   );
 };
 

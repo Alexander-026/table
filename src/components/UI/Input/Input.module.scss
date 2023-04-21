@@ -11,6 +11,7 @@
   &Label {
     @include labelStyles;
     left: 14px;
+   
   }
 
   &Label:global(.focus) {
